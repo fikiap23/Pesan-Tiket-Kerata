@@ -2,18 +2,26 @@ package views;
 
 import java.util.Scanner;
 
+import interfaces.Ticket;
 import model.Schedule;
-import model.Ticket;
 import model.TicketOrder;
 import model.User;
 
-// Kelas untuk menu pengguna
+/**
+ * Kelas untuk tampilan menu pengguna.
+ */
 public class UserMenu {
     private Scanner scanner;
     private User currentUser;
     private TicketOrder ticketOrder;
     private Schedule schedule;
 
+    /**
+     * Konstruktor untuk UserMenu.
+     *
+     * @param user     objek User yang sedang login.
+     * @param schedule objek Schedule untuk jadwal tiket.
+     */
     public UserMenu(User user, Schedule schedule) {
         scanner = new Scanner(System.in);
         currentUser = user;
@@ -21,6 +29,9 @@ public class UserMenu {
         this.schedule = schedule;
     }
 
+    /**
+     * Menampilkan menu pengguna.
+     */
     public void displayMenu() {
         while (true) {
             System.out.println("\n=== MENU USER ===");
@@ -36,48 +47,71 @@ public class UserMenu {
             scanner.nextLine(); // Membuang karakter '\n'
 
             if (choice == 1) {
-                System.out.println("=== LIHAT JADWAL TIKET ===");
-                schedule.displaySchedule();
+                displaySchedule();
             } else if (choice == 2) {
-                System.out.println("=== PESAN TIKET ===");
-                schedule.displaySchedule();
-                System.out.print("Pilih nomor jadwal tiket yang ingin dipesan: ");
-                int ticketChoice = scanner.nextInt();
-                scanner.nextLine(); // Membuang karakter '\n'
-
-                if (ticketChoice >= 1 && ticketChoice <= schedule.getTickets().size()) {
-                    Ticket ticket = schedule.getTickets().get(ticketChoice - 1);
-                    ticketOrder.addTicket(ticket);
-                    System.out.println("Tiket berhasil ditambahkan ke dalam pesanan.\n");
-                } else {
-                    System.out.println("Pilihan tidak valid.\n");
-                }
+                orderTicket();
             } else if (choice == 3) {
-                ticketOrder.cancelOrder();
+                cancelOrder();
             } else if (choice == 4) {
-                System.out.println("=== CHECKOUT ===");
-                if (ticketOrder.getTickets().isEmpty()) {
-                    System.out.println("Anda belum memiliki tiket dalam pesanan.\n");
-                } else {
-                    ticketOrder.checkout();
-                }
+                checkout();
             } else if (choice == 5) {
-                System.out.println("Saldo Anda: " + currentUser.getSaldo());
+                displaySaldo();
             } else if (choice == 6) {
-                System.out.println("=== ISI SALDO ===");
-                System.out.print("Masukkan jumlah saldo yang ingin diisi: ");
-                double saldo = scanner.nextDouble();
-                scanner.nextLine(); // Membuang karakter '\n'
-
-                double currentSaldo = currentUser.getSaldo();
-                currentUser.setSaldo(currentSaldo + saldo);
-                System.out.println("Saldo berhasil diisi. Saldo Anda sekarang: " + currentUser.getSaldo());
+                isiSaldo();
             } else if (choice == 7) {
-                // Logout dari akun user
                 break;
             } else {
                 System.out.println("Pilihan tidak valid.\n");
             }
         }
+    }
+
+    private void displaySchedule() {
+        System.out.println("=== LIHAT JADWAL TIKET ===");
+        schedule.displaySchedule();
+    }
+
+    private void orderTicket() {
+        System.out.println("=== PESAN TIKET ===");
+        displaySchedule();
+        System.out.print("Pilih nomor jadwal tiket yang ingin dipesan: ");
+        int ticketChoice = scanner.nextInt();
+        scanner.nextLine(); // Membuang karakter '\n'
+
+        if (ticketChoice >= 1 && ticketChoice <= schedule.getTickets().size()) {
+            Ticket ticket = schedule.getTickets().get(ticketChoice - 1);
+            ticketOrder.addTicket(ticket);
+            System.out.println("Tiket berhasil ditambahkan ke dalam pesanan.\n");
+        } else {
+            System.out.println("Pilihan tidak valid.\n");
+        }
+    }
+
+    private void cancelOrder() {
+        ticketOrder.cancelOrder();
+    }
+
+    private void checkout() {
+        System.out.println("=== CHECKOUT ===");
+        if (ticketOrder.getTickets().isEmpty()) {
+            System.out.println("Anda belum memiliki tiket dalam pesanan.\n");
+        } else {
+            ticketOrder.checkout();
+        }
+    }
+
+    private void displaySaldo() {
+        System.out.println("Saldo Anda: " + currentUser.getSaldo());
+    }
+
+    private void isiSaldo() {
+        System.out.println("=== ISI SALDO ===");
+        System.out.print("Masukkan jumlah saldo yang ingin diisi: ");
+        double saldo = scanner.nextDouble();
+        scanner.nextLine(); // Membuang karakter '\n'
+
+        double currentSaldo = currentUser.getSaldo();
+        currentUser.setSaldo(currentSaldo + saldo);
+        System.out.println("Saldo berhasil diisi. Saldo Anda sekarang: " + currentUser.getSaldo());
     }
 }

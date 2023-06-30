@@ -1,7 +1,9 @@
 import java.util.Scanner;
 
 import database.UserDatabaseSingleton;
-import model.*;
+import model.Admin;
+import model.Schedule;
+import model.User;
 import views.AdminMenu;
 import views.UserMenu;
 
@@ -9,13 +11,15 @@ public class ProgramTiketKereta {
     private static Scanner scanner = new Scanner(System.in);
     private static UserDatabaseSingleton userDatabase = UserDatabaseSingleton.getInstance();
     private static Schedule schedule = new Schedule();
-    private static AdminMenu menuAdmin = new AdminMenu(scanner, schedule);
+    private static AdminMenu menuAdmin;
     private static UserMenu menuUser;
 
     public static void main(String[] args) {
         // Membuat akun dummy untuk admin
         Admin admin = new Admin("admin", "admin123");
         userDatabase.addUser(admin);
+        menuAdmin = new AdminMenu(scanner, schedule);
+
         while (true) {
             System.out.println("=== SISTEM PEMESANAN TIKET KERETA ===");
             System.out.println("1. Daftar");
@@ -54,6 +58,9 @@ public class ProgramTiketKereta {
                     if (loggedInUser instanceof Admin) {
                         menuAdmin.displayMenu();
                     } else {
+                        if (menuUser == null) {
+                            menuUser = new UserMenu(loggedInUser, schedule);
+                        }
                         menuUser.displayMenu();
                     }
                 } else {
@@ -68,5 +75,4 @@ public class ProgramTiketKereta {
             }
         }
     }
-
 }

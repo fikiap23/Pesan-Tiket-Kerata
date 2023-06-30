@@ -1,20 +1,33 @@
 package views;
 
 import java.util.Scanner;
+
+import interfaces.Ticket;
 import model.Schedule;
-import model.Ticket;
 import model.TicketFactory;
 import model.TrainTicketFactory;
 
+/**
+ * Kelas untuk tampilan menu admin.
+ */
 public class AdminMenu {
     private Scanner scanner;
     private Schedule schedule;
 
+    /**
+     * Konstruktor untuk AdminMenu.
+     *
+     * @param scanner  objek Scanner untuk input pengguna.
+     * @param schedule objek Schedule untuk jadwal tiket.
+     */
     public AdminMenu(Scanner scanner, Schedule schedule) {
         this.scanner = scanner;
         this.schedule = schedule;
     }
 
+    /**
+     * Menampilkan menu admin.
+     */
     public void displayMenu() {
         while (true) {
             System.out.println("\n=== MENU ADMIN ===");
@@ -57,7 +70,7 @@ public class AdminMenu {
 
     private void removeTicket() {
         System.out.println("=== HAPUS JADWAL TIKET ===");
-        schedule.displaySchedule();
+        displaySchedule();
         System.out.print("Pilih nomor jadwal tiket yang ingin dihapus: ");
         int ticketChoice = scanner.nextInt();
         scanner.nextLine(); // Membuang karakter '\n'

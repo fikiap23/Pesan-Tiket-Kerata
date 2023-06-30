@@ -1,10 +1,14 @@
 package database;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import interfaces.UserDatabase;
 import model.User;
 
-import java.util.*;
-
-// Implementasi database user menggunakan Singleton Pattern
+/**
+ * Implementasi database pengguna menggunakan Singleton Pattern.
+ */
 public class UserDatabaseSingleton implements UserDatabase {
     private static UserDatabaseSingleton instance;
     private Map<String, User> users;

@@ -1,6 +1,10 @@
 package model;
 
-// Kelas tiket kereta
+import interfaces.Ticket;
+
+/**
+ * Kelas tiket kereta.
+ */
 public class TrainTicket implements Ticket {
     private String destination;
     private double price;
@@ -10,13 +14,21 @@ public class TrainTicket implements Ticket {
         this.price = price;
     }
 
-    // Implementasi method pada interface Ticket
-
+    /**
+     * Mengembalikan tujuan tiket kereta.
+     *
+     * @return tujuan tiket kereta.
+     */
     @Override
     public String getDestination() {
         return destination;
     }
 
+    /**
+     * Mengembalikan harga tiket kereta.
+     *
+     * @return harga tiket kereta.
+     */
     @Override
     public double getPrice() {
         return price;
