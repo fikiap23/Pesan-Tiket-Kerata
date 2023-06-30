@@ -2,10 +2,12 @@ package views;
 
 import java.util.Scanner;
 
+import database.UserDatabaseSingleton;
 import interfaces.Ticket;
 import model.Schedule;
 import model.TicketFactory;
 import model.TrainTicketFactory;
+import model.User;
 
 /**
  * Kelas untuk tampilan menu admin.
@@ -13,6 +15,7 @@ import model.TrainTicketFactory;
 public class AdminMenu {
     private Scanner scanner;
     private Schedule schedule;
+    private static UserDatabaseSingleton userDatabase = UserDatabaseSingleton.getInstance();
 
     /**
      * Konstruktor untuk AdminMenu.
@@ -34,7 +37,9 @@ public class AdminMenu {
             System.out.println("1. Tambah Jadwal Tiket");
             System.out.println("2. Hapus Jadwal Tiket");
             System.out.println("3. Lihat Jadwal Tiket");
-            System.out.println("4. Logout");
+            System.out.println("4. Lihat Semua User");
+            System.out.println("5. Lihat Detail User");
+            System.out.println("6. Logout");
             System.out.print("Pilihan Anda: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Membuang karakter '\n'
@@ -46,6 +51,10 @@ public class AdminMenu {
             } else if (choice == 3) {
                 displaySchedule();
             } else if (choice == 4) {
+                displayAllUsers();
+            } else if (choice == 5) {
+                displayUserDetails();
+            } else if (choice == 6) {
                 break;
             } else {
                 System.out.println("Pilihan tidak valid.\n");
@@ -92,4 +101,28 @@ public class AdminMenu {
             i++;
         }
     }
+
+    private void displayAllUsers() {
+        System.out.println("=== SEMUA USER ===");
+        int i = 1;
+        for (User user : userDatabase.getAllUsers()) {
+            System.out.println(i + ". Username: " + user.getUsername() + ", Nama: " + user.getNama());
+            i++;
+        }
+    }
+
+    private void displayUserDetails() {
+        System.out.println("=== LIHAT DETAIL USER ===");
+        displayAllUsers();
+        System.out.print("Pilih username yang ingin dilihat detailnya: ");
+        String userChoice = scanner.next();
+        scanner.nextLine(); // Membuang karakter '\n'
+
+        if (userDatabase.getUser(userChoice) != null) {
+            System.out.println(userDatabase.getUserDetails(userChoice));
+        } else {
+            System.out.println("Username tidak ada.\n");
+        }
+    }
+
 }

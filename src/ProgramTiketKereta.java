@@ -16,7 +16,11 @@ public class ProgramTiketKereta {
 
     public static void main(String[] args) {
         // Membuat akun dummy untuk admin
-        Admin admin = new Admin("admin", "admin123");
+        Admin admin = new Admin.Builder("admin", "admin123")
+                .setNama("Admin")
+                .setEmail("admin@admin.com")
+                .build();
+
         userDatabase.addUser(admin);
         menuAdmin = new AdminMenu(scanner, schedule);
 
@@ -36,8 +40,37 @@ public class ProgramTiketKereta {
                 System.out.print("Password: ");
                 String password = scanner.nextLine();
 
-                // Membuat user baru
-                User user = new User(username, password);
+                // Mengecek apakah username sudah digunakan
+                if (userDatabase.getUser(username) != null) {
+                    System.out.println("Username sudah digunakan. Pendaftaran gagal.\n");
+                    continue;
+                }
+
+                // Membuat user baru menggunakan builder
+                User.Builder userBuilder = new User.Builder(username, password);
+
+                System.out.print("Apakah Anda ingin mengisi informasi biodata? (y/n): ");
+                String option = scanner.nextLine();
+                if (option.equalsIgnoreCase("y")) {
+                    System.out.print("Nama: ");
+                    String nama = scanner.nextLine();
+                    userBuilder.setNama(nama);
+
+                    System.out.print("Email: ");
+                    String email = scanner.nextLine();
+                    userBuilder.setEmail(email);
+
+                    System.out.print("Nomor Telepon: ");
+                    String nomorTelepon = scanner.nextLine();
+                    userBuilder.setNomorTelepon(nomorTelepon);
+
+                    System.out.print("Alamat: ");
+                    String alamat = scanner.nextLine();
+                    userBuilder.setAlamat(alamat);
+                }
+
+                User user = userBuilder.build();
+
                 userDatabase.addUser(user);
                 menuUser = new UserMenu(user, schedule);
 
@@ -48,9 +81,9 @@ public class ProgramTiketKereta {
                 String username = scanner.nextLine();
                 System.out.print("Password: ");
                 String password = scanner.nextLine();
+                User loggedInUser = userDatabase.getUser(username);
 
                 // Login
-                User loggedInUser = userDatabase.getUser(username);
                 if (loggedInUser != null && loggedInUser.getPassword().equals(password)) {
                     // Jika login berhasil
                     System.out.println("Login berhasil.");
@@ -58,15 +91,14 @@ public class ProgramTiketKereta {
                     if (loggedInUser instanceof Admin) {
                         menuAdmin.displayMenu();
                     } else {
-                        if (menuUser == null) {
-                            menuUser = new UserMenu(loggedInUser, schedule);
-                        }
+                        menuUser = new UserMenu(loggedInUser, schedule);
                         menuUser.displayMenu();
                     }
                 } else {
                     // Jika login gagal
                     System.out.println("Username atau password salah.\n");
                 }
+
             } else if (choice == 3) {
                 // Keluar dari program
                 break;

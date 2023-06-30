@@ -1,15 +1,16 @@
 package database;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import interfaces.UserDatabase;
 import model.User;
 
 /**
  * Implementasi database pengguna menggunakan Singleton Pattern.
  */
-public class UserDatabaseSingleton implements UserDatabase {
+public class UserDatabaseSingleton {
     private static UserDatabaseSingleton instance;
     private Map<String, User> users;
 
@@ -24,18 +25,34 @@ public class UserDatabaseSingleton implements UserDatabase {
         return instance;
     }
 
-    @Override
     public void addUser(User user) {
         users.put(user.getUsername(), user);
     }
 
-    @Override
     public void removeUser(User user) {
         users.remove(user.getUsername());
     }
 
-    @Override
     public User getUser(String username) {
         return users.get(username);
+    }
+
+    public List<User> getAllUsers() {
+        return new ArrayList<>(users.values());
+    }
+
+    public String getUserDetails(String username) {
+        User user = users.get(username);
+        if (user != null) {
+            StringBuilder userDetails = new StringBuilder();
+            userDetails.append("Username: ").append(user.getUsername()).append("\n");
+            userDetails.append("Nama: ").append(user.getNama()).append("\n");
+            userDetails.append("Email: ").append(user.getEmail()).append("\n");
+            userDetails.append("Nomor Telepon: ").append(user.getNomorTelepon()).append("\n");
+            userDetails.append("Alamat: ").append(user.getAlamat()).append("\n");
+            userDetails.append("Saldo: ").append(user.getSaldo()).append("\n");
+            return userDetails.toString();
+        }
+        return "User dengan username " + username + " tidak ditemukan.";
     }
 }

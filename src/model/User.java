@@ -6,12 +6,33 @@ package model;
 public class User {
     private String username;
     private String password;
+    private String nama;
+    private String email;
+    private String nomorTelepon;
+    private String alamat;
     private double saldo;
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.saldo = 0.0;
+    public User(Builder builder) {
+        this.username = builder.username;
+        this.password = builder.password;
+        this.nama = builder.nama;
+        this.email = builder.email;
+        this.nomorTelepon = builder.nomorTelepon;
+        this.alamat = builder.alamat;
+        this.saldo = builder.saldo;
+    }
+
+    /**
+     * Menampilkan informasi akun pengguna.
+     */
+    public void infoAkun() {
+        System.out.println("Informasi Akun");
+        System.out.println("Username: " + getUsername());
+        System.out.println("Nama: " + getNama());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Nomor Telepon: " + getNomorTelepon());
+        System.out.println("Alamat: " + getAlamat());
+        System.out.println("Saldo: " + getSaldo());
     }
 
     /**
@@ -33,6 +54,42 @@ public class User {
     }
 
     /**
+     * Mengembalikan nama pengguna.
+     *
+     * @return nama pengguna.
+     */
+    public String getNama() {
+        return nama;
+    }
+
+    /**
+     * Mengembalikan email pengguna.
+     *
+     * @return email pengguna.
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Mengembalikan nomor telepon pengguna.
+     *
+     * @return nomor telepon pengguna.
+     */
+    public String getNomorTelepon() {
+        return nomorTelepon;
+    }
+
+    /**
+     * Mengembalikan alamat pengguna.
+     *
+     * @return alamat pengguna.
+     */
+    public String getAlamat() {
+        return alamat;
+    }
+
+    /**
      * Mengembalikan saldo pengguna.
      *
      * @return saldo pengguna.
@@ -48,5 +105,98 @@ public class User {
      */
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    /**
+     * Builder generik untuk membuat objek User.
+     *
+     * @param <T> jenis builder yang dihasilkan.
+     */
+    public static class Builder<T extends Builder<T>> {
+        private String username;
+        private String password;
+        private String nama;
+        private String email;
+        private String nomorTelepon;
+        private String alamat;
+        private double saldo;
+
+        public Builder(String username, String password) {
+            this.username = username;
+            this.password = password;
+        }
+
+        /**
+         * Mengatur nama pengguna.
+         *
+         * @param nama nama pengguna.
+         * @return builder saat ini.
+         */
+        public T setNama(String nama) {
+            this.nama = nama;
+            return self();
+        }
+
+        /**
+         * Mengatur email pengguna.
+         *
+         * @param email email pengguna.
+         * @return builder saat ini.
+         */
+        public T setEmail(String email) {
+            this.email = email;
+            return self();
+        }
+
+        /**
+         * Mengatur nomor telepon pengguna.
+         *
+         * @param nomorTelepon nomor telepon pengguna.
+         * @return builder saat ini.
+         */
+        public T setNomorTelepon(String nomorTelepon) {
+            this.nomorTelepon = nomorTelepon;
+            return self();
+        }
+
+        /**
+         * Mengatur alamat pengguna.
+         *
+         * @param alamat alamat pengguna.
+         * @return builder saat ini.
+         */
+        public T setAlamat(String alamat) {
+            this.alamat = alamat;
+            return self();
+        }
+
+        /**
+         * Mengatur saldo pengguna.
+         *
+         * @param saldo saldo pengguna.
+         * @return builder saat ini.
+         */
+        public T setSaldo(double saldo) {
+            this.saldo = saldo;
+            return self();
+        }
+
+        /**
+         * Metode abstrak yang mengembalikan instance builder saat ini.
+         *
+         * @return instance builder saat ini.
+         */
+        protected T self() {
+            return (T) this;
+        }
+
+        /**
+         * Membangun objek User.
+         *
+         * @return objek User.
+         */
+        public User build() {
+            return new User(this);
+        }
     }
 }
