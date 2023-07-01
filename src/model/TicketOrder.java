@@ -6,24 +6,46 @@ import java.util.Scanner;
 
 import interfaces.Ticket;
 
-// Kelas untuk melakukan pemesanan tiket
+/**
+ * Kelas untuk melakukan pemesanan tiket.
+ */
 public class TicketOrder {
     private User user;
     private List<Ticket> tickets;
 
+    /**
+     * Konstruktor TicketOrder.
+     *
+     * @param user pengguna yang melakukan pemesanan tiket
+     */
     public TicketOrder(User user) {
         this.user = user;
         this.tickets = new ArrayList<>();
     }
 
+    /**
+     * Menambahkan tiket ke dalam pemesanan.
+     *
+     * @param ticket tiket yang akan ditambahkan
+     */
     public void addTicket(Ticket ticket) {
         tickets.add(ticket);
     }
 
+    /**
+     * Menghapus tiket dari pemesanan.
+     *
+     * @param ticket tiket yang akan dihapus
+     */
     public void removeTicket(Ticket ticket) {
         tickets.remove(ticket);
     }
 
+    /**
+     * Menghitung total harga dari tiket-tiket yang dipesan.
+     *
+     * @return total harga tiket
+     */
     public double getTotalPrice() {
         double totalPrice = 0.0;
         for (Ticket ticket : tickets) {
@@ -32,6 +54,9 @@ public class TicketOrder {
         return totalPrice;
     }
 
+    /**
+     * Melakukan proses checkout untuk pemesanan tiket.
+     */
     public void checkout() {
         if (tickets.isEmpty()) {
             System.out.println("Tidak ada pesanan untuk diperiksa.");
@@ -68,6 +93,9 @@ public class TicketOrder {
         }
     }
 
+    /**
+     * Membatalkan pesanan tiket.
+     */
     public void cancelOrder() {
         if (tickets.isEmpty()) {
             System.out.println("Tidak ada pesanan untuk dibatalkan.");
@@ -96,6 +124,11 @@ public class TicketOrder {
         }
     }
 
+    /**
+     * Mengembalikan daftar tiket dalam pemesanan.
+     *
+     * @return daftar tiket
+     */
     public List<Ticket> getTickets() {
         return tickets;
     }

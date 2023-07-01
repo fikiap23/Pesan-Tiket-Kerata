@@ -2,7 +2,6 @@ package views;
 
 import java.util.Scanner;
 
-import database.UserDatabaseSingleton;
 import interfaces.Ticket;
 import model.Schedule;
 import model.TicketOrder;
