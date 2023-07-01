@@ -56,6 +56,8 @@ public class TicketOrder {
 
     /**
      * Melakukan proses checkout untuk pemesanan tiket.
+     *
+     * @param user pengguna yang melakukan checkout
      */
     public void checkout() {
         if (tickets.isEmpty()) {
@@ -84,6 +86,7 @@ public class TicketOrder {
                 user.setSaldo(saldo - totalPrice);
                 System.out.println("Pemesanan tiket berhasil. Saldo Anda: " + user.getSaldo());
                 tickets.remove(ticketToCheckout);
+                generatePurchaseReceipt(ticketToCheckout, user);
                 // Proses pengiriman tiket
             } else {
                 System.out.println("Saldo tidak mencukupi. Pemesanan gagal.");
@@ -122,6 +125,21 @@ public class TicketOrder {
         } else {
             System.out.println("Pilihan tidak valid.");
         }
+    }
+
+    /**
+     * Menghasilkan struk pembelian untuk tiket yang dibeli.
+     *
+     * @param ticket tiket yang dibeli
+     * @param user   pengguna yang melakukan pembelian
+     */
+    private void generatePurchaseReceipt(Ticket ticket, User user) {
+        System.out.println("=== STRUK PEMBELIAN ===");
+        System.out.println("Pengguna: " + user.getNama());
+        System.out.println("Email: " + user.getEmail());
+        System.out.println("Tujuan: " + ticket.getDestination());
+        System.out.println("Harga: " + ticket.getPrice());
+        System.out.println("Terima kasih, selamat menikmati perjalanan!");
     }
 
     /**

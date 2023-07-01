@@ -70,7 +70,6 @@ public class UserMenu {
     }
 
     private void displaySchedule() {
-        System.out.println("=== LIHAT JADWAL TIKET ===");
         schedule.displaySchedule();
     }
 
