@@ -5,8 +5,7 @@ import java.util.Scanner;
 import database.UserDatabaseSingleton;
 import interfaces.Ticket;
 import model.Schedule;
-import model.TicketFactory;
-import model.TrainTicketFactory;
+import model.TrainTicket;
 import model.User;
 
 /**
@@ -70,8 +69,7 @@ public class AdminMenu {
         double price = scanner.nextDouble();
         scanner.nextLine(); // Membuang karakter '\n'
 
-        TicketFactory ticketFactory = new TrainTicketFactory();
-        Ticket ticket = ticketFactory.createTicket(destination, price);
+        Ticket ticket = new TrainTicket(destination, price);
         schedule.addTicket(ticket);
 
         System.out.println("Jadwal tiket berhasil ditambahkan.\n");
