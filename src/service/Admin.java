@@ -1,4 +1,4 @@
-package model;
+package service;
 
 /**
  * Kelas admin yang merupakan turunan dari User.

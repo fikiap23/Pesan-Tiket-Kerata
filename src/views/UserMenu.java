@@ -3,9 +3,9 @@ package views;
 import java.util.Scanner;
 
 import interfaces.Ticket;
-import model.Schedule;
-import model.TicketOrder;
-import model.User;
+import service.Schedule;
+import service.TicketOrder;
+import service.User;
 
 /**
  * Kelas untuk tampilan menu pengguna.

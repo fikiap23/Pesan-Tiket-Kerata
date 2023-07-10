@@ -4,9 +4,10 @@ import java.util.Scanner;
 
 import database.UserDatabaseSingleton;
 import interfaces.Ticket;
-import model.Schedule;
-import model.TrainTicket;
-import model.User;
+import service.Schedule;
+import service.TrainTicket;
+import service.TrainTicketFactory;
+import service.User;
 
 /**
  * Kelas untuk tampilan menu admin.
@@ -15,6 +16,7 @@ public class AdminMenu {
     private Scanner scanner;
     private Schedule schedule;
     private static UserDatabaseSingleton userDatabase = UserDatabaseSingleton.getInstance();
+    private TrainTicketFactory ticketFactory;
 
     /**
      * Konstruktor untuk AdminMenu.
@@ -25,6 +27,7 @@ public class AdminMenu {
     public AdminMenu(Scanner scanner, Schedule schedule) {
         this.scanner = scanner;
         this.schedule = schedule;
+        this.ticketFactory = new TrainTicketFactory();
     }
 
     /**
@@ -67,10 +70,13 @@ public class AdminMenu {
         String destination = scanner.nextLine();
         System.out.print("Harga: ");
         double price = scanner.nextDouble();
-        scanner.nextLine(); // Membuang karakter '\n'
+        scanner.nextLine();
 
-        Ticket ticket = new TrainTicket(destination, price);
-        schedule.addTicket(ticket);
+        Ticket economyTicket = TrainTicketFactory.createEconomyTicket(destination, price);
+        Ticket businessTicket = TrainTicketFactory.createBusinessTicket(destination, price);
+
+        schedule.addTicket(economyTicket);
+        schedule.addTicket(businessTicket);
 
         System.out.println("Jadwal tiket berhasil ditambahkan.\n");
     }

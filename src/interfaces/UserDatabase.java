@@ -1,6 +1,6 @@
 package interfaces;
 
-import model.User;
+import service.User;
 
 /**
  * Database pengguna.

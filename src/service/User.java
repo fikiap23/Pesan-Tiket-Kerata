@@ -1,4 +1,4 @@
-package model;
+package service;
 
 /**
  * Kelas User yang merepresentasikan pengguna.

@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 import database.UserDatabaseSingleton;
-import model.Admin;
-import model.Schedule;
-import model.User;
+import service.Admin;
+import service.Schedule;
+import service.User;
 import views.AdminMenu;
 import views.UserMenu;
 

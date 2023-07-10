@@ -1,9 +1,10 @@
-package model;
+package service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import interfaces.Ticket;
+import interfaces.TicketType;
 
 /**
  * Kelas jadwal tiket.
@@ -49,7 +50,9 @@ public class Schedule {
         System.out.println("=== JADWAL DAN HARGA TIKET ===");
         int i = 1;
         for (Ticket ticket : tickets) {
-            System.out.println(i + ". Tujuan: " + ticket.getDestination() + ", Harga: " + ticket.getPrice());
+            String ticketType = (ticket.getType() == TicketType.BUSINESS) ? "Bisnis" : "Ekonomi";
+            System.out.println(i + ". Tujuan: " + ticket.getDestination() + ", Tipe: " + ticketType + ", Harga: "
+                    + ticket.getPrice());
             i++;
         }
     }
