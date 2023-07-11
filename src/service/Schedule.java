@@ -57,3 +57,31 @@ public class Schedule {
         }
     }
 }
+
+/**
+ * Single Responsibility Principle (SRP): Kelas Schedule memiliki tanggung jawab
+ * tunggal yaitu mengatur jadwal tiket. Kelas ini memiliki metode-metode yang
+ * berkaitan dengan manipulasi jadwal tiket seperti menambahkan tiket, menghapus
+ * tiket, dan menampilkan jadwal tiket. Hal ini sesuai dengan prinsip SRP yang
+ * menyatakan bahwa sebuah kelas harus memiliki satu alasan untuk berubah.
+ * 
+ * Open/Closed Principle (OCP): Dalam kelas Schedule, tidak ada modifikasi
+ * langsung terhadap kode sumber kelas. Kelas ini terbuka untuk perluasan
+ * melalui penambahan tiket baru ke jadwal menggunakan metode addTicket(). Ini
+ * memungkinkan perubahan dalam jadwal tiket tanpa mempengaruhi implementasi
+ * langsung dari kelas Schedule.
+ * 
+ * Liskov Substitution Principle (LSP): Dalam contoh kode yang diberikan, tidak
+ * ada pewarisan atau penggunaan kelas turunan, sehingga LSP tidak berlaku dalam
+ * konteks ini.
+ * 
+ * Interface Segregation Principle (ISP): Kelas Schedule tidak
+ * mengimplementasikan antarmuka apa pun, sehingga tidak ada penerapan ISP dalam
+ * kelas ini.
+ * 
+ * Dependency Inversion Principle (DIP): Kelas Schedule menggunakan abstraksi
+ * Ticket dan TicketType melalui interfacenya. Hal ini memungkinkan
+ * fleksibilitas dalam hal jenis tiket yang dapat ditambahkan ke jadwal tanpa
+ * tergantung pada implementasi konkret. Dengan demikian, kelas Schedule
+ * mengikuti prinsip DIP.
+ */

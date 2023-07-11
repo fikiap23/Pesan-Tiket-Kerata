@@ -1,11 +1,12 @@
 package interfaces;
 
+import java.util.List;
 import service.User;
 
 /**
  * Database pengguna.
  */
-public interface UserDatabase {
+public interface UserStorage {
     /**
      * Menambahkan pengguna ke database.
      *
@@ -28,4 +29,6 @@ public interface UserDatabase {
      *         ditemukan.
      */
     User getUser(String username);
+
+    List<User> getAllUsers();
 }

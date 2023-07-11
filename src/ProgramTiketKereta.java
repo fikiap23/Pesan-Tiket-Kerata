@@ -18,7 +18,7 @@ public class ProgramTiketKereta {
         // Membuat akun dummy untuk admin
         Admin admin = new Admin.Builder("admin", "admin123")
                 .setNama("Admin")
-                .setEmail("admin@admin.com")
+                .setEmail("admin@admin.com").setNomorTelepon("08777")
                 .build();
 
         userDatabase.addUser(admin);

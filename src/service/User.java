@@ -1,9 +1,12 @@
 package service;
 
+import interfaces.UserDataInterface;
+import interfaces.UserInterface;
+
 /**
  * Kelas User yang merepresentasikan pengguna.
  */
-public class User {
+public class User implements UserInterface,UserDataInterface{
     private String username;
     private String password;
     private String nama;
@@ -20,19 +23,6 @@ public class User {
         this.nomorTelepon = builder.nomorTelepon;
         this.alamat = builder.alamat;
         this.saldo = builder.saldo;
-    }
-
-    /**
-     * Menampilkan informasi akun pengguna.
-     */
-    public void infoAkun() {
-        System.out.println("Informasi Akun");
-        System.out.println("Username: " + getUsername());
-        System.out.println("Nama: " + getNama());
-        System.out.println("Email: " + getEmail());
-        System.out.println("Nomor Telepon: " + getNomorTelepon());
-        System.out.println("Alamat: " + getAlamat());
-        System.out.println("Saldo: " + getSaldo());
     }
 
     /**

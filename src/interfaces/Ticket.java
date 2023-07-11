@@ -11,8 +11,6 @@ public interface Ticket {
      */
     String getDestination();
 
-    TicketType geType();
-
     /**
      * Mengembalikan harga dari tiket.
      *
